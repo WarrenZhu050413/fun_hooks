@@ -1,0 +1,13 @@
+# Logs
+*.log
+notification.log
+
+# macOS
+.DS_Store
+
+# Test directories
+test_repo/
+
+# Editor directories
+.vscode/
+.idea/
