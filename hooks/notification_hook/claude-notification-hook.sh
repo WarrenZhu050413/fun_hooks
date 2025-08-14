@@ -3,7 +3,7 @@
 # Claude Code Audio Notification Script
 # Uses sound notifications since visual notifications aren't working in tmux
 
-# Configuration - Edit these to customize
+# Configuration - Edit these to customize or use environment variables
 # Recommended voices for notifications (macOS built-in):
 #   "Good News" - Cheerful, upbeat voice (default)
 #   "Bad News"  - Serious, dramatic voice  
@@ -12,11 +12,11 @@
 #   "Albert"    - Standard US male voice
 #   "Samantha"  - Standard US female voice
 #   "Daniel"    - British male voice
-DEFAULT_VOICE="Good News"  
+DEFAULT_VOICE="${CLAUDE_VOICE:-Good News}"  
 
 # Speech rate in words per minute (default: ~180, range: 90-720)
 # Recommended: 150-200 for clarity, 200-250 for quick notifications
-SPEECH_RATE=170
+SPEECH_RATE="${CLAUDE_WPM:-170}"
 
 # Read JSON input from stdin
 json_input=$(cat)
@@ -39,22 +39,25 @@ dir_name=$(basename "$cwd")
 
 # Determine notification content and sound based on hook type
 if [ "$hook_event" = "Stop" ]; then
-    title="Claude Code finished responding"
-    notification_message="in $dir_name"
+    title="In $dir_name, Claude finished responding"
+    notification_message=""
     sound_file="/System/Library/Sounds/Glass.aiff"
     # Play a distinctive pattern for completion
     afplay "$sound_file" &
     sleep 0.3
     afplay "$sound_file" &
     # Create spoken notification
-    spoken_message="$title $notification_message"
+    spoken_message="$title"
 elif [ "$hook_event" = "Notification" ]; then
-    title="Claude needs input"
     # Include the message if provided
     if [ -n "$message" ] && [ "$message" != "null" ]; then
-        notification_message="$message in $dir_name"
+        title="In $dir_name, Claude needs input"
+        notification_message="$message"
+        spoken_message="$title, $notification_message"
     else
-        notification_message="waiting in $dir_name"
+        title="In $dir_name, Claude needs input"
+        notification_message=""
+        spoken_message="$title"
     fi
     sound_file="/System/Library/Sounds/Ping.aiff"
     # Play three quick pings for attention
@@ -62,11 +65,9 @@ elif [ "$hook_event" = "Notification" ]; then
         afplay "$sound_file" &
         sleep 0.2
     done
-    # Create spoken notification
-    spoken_message="$title, $notification_message"
 else
-    title="Claude event"
-    notification_message="$hook_event in $dir_name"
+    title="In $dir_name, Claude event"
+    notification_message="$hook_event"
     sound_file="/System/Library/Sounds/Pop.aiff"
     afplay "$sound_file" &
     # Create spoken notification
