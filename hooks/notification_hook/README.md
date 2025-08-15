@@ -30,6 +30,15 @@ claude
 # Give your Claude instances custom names!
 CLAUDE_INSTANCE_NAME="Email Helper" claude
 
+# Or use the utility::set-instance-name command to auto-detect context:
+# In your Claude session, run:
+# /utility::set-instance-name
+# This will analyze your conversation and set an appropriate name like:
+# - "Code-Assistant" for coding sessions
+# - "Debug-Helper" for troubleshooting
+# - "Memory-Keeper" for memory management
+# - "Philosophy-Guide" for deep discussions
+
 # Or add this helper to your shell config:
 claude-named() {
   local name="$1"
