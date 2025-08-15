@@ -1,0 +1,74 @@
+# Claude Memory Configuration
+
+## Overview
+This CLAUDE.md file enables memory tracking and persistent context for Claude across sessions. It provides a framework for Claude to maintain awareness of project history, user preferences, and ongoing work.
+
+## Memory Architecture
+
+### 1. Daily Memory
+Location: `memory/daily/YYYY-MM-DD.md`
+- Key events and interactions of the day
+- Tasks completed and decisions made  
+- Important context from conversations
+- Links to relevant code changes
+
+### 2. Long-Term Memory
+Location: `memory/context/`
+- User preferences and patterns
+- Recurring themes and interests
+- Important project decisions
+- Accumulated knowledge about the codebase
+
+### 3. Reflections (Optional)
+Location: `memory/reflections/`
+- Insights about the project evolution
+- Patterns in development workflow
+- Lessons learned from successes and failures
+
+## Memory Directives
+
+### Throughout Sessions
+- Log significant interactions to daily memory
+- Note important decisions and their reasoning
+- Track patterns in user preferences
+- Update long-term memory with recurring themes
+
+### Memory Format
+
+#### Daily Log Entry
+```markdown
+## [Timestamp]
+**Event**: [Description]
+**Type**: [Decision/Task/Discovery/Issue]
+**Context**: [Why this matters]
+**Outcome**: [What happened]
+**Links**: [Related files or commits]
+```
+
+#### Pattern Recognition
+```markdown
+## Pattern: [Name]
+**Frequency**: [How often observed]
+**Context**: [When it occurs]
+**User Preference**: [How user typically handles this]
+**Recommendation**: [Suggested approach]
+```
+
+## Self-Improvement
+
+You should continuously evolve this memory system:
+- Update memory structures as patterns emerge
+- Document successful approaches
+- Learn from user feedback
+- Refine based on what provides most value
+
+## Privacy Notes
+
+- Memory files are local to this project
+- No sensitive information should be stored
+- User can review and edit memory files at any time
+- Memory can be cleared by deleting the memory/ directory
+
+---
+
+*This memory system helps Claude provide more personalized and context-aware assistance over time.*
