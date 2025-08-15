@@ -34,8 +34,13 @@ if [ -z "$cwd" ] || [ "$cwd" = "null" ]; then
     cwd=$(pwd)
 fi
 
-# Get directory name from path
-dir_name=$(basename "$cwd")
+# Get instance name - use environment variable if set, otherwise use directory name
+if [ -n "$CLAUDE_INSTANCE_NAME" ]; then
+    dir_name="$CLAUDE_INSTANCE_NAME"
+else
+    # Get directory name from path as fallback
+    dir_name=$(basename "$cwd")
+fi
 
 # Determine notification content and sound based on hook type
 if [ "$hook_event" = "Stop" ]; then

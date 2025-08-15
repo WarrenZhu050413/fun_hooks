@@ -14,25 +14,36 @@ I always wanted a nice notification system for Claude Code. Initially I wanted t
 
 ## Setup
 
-### Global Installation (Recommended)
+### Quick Install (Recommended)
 ```bash
-# Install globally
-mkdir -p ~/.local/share/claude-hooks/
-cp claude-notification-hook.sh ~/.local/share/claude-hooks/
-cp notification-setup.sh ~/.local/bin/notification-setup
-chmod +x ~/.local/bin/notification-setup
+# One-command installation
+./install.sh
+
+# That's it! Now use anywhere:
+cd ~/your_project
+notification-setup
+claude
 ```
 
-### Use Anywhere
+### Custom Instance Names 🎯
 ```bash
-cd ~/your_project
-notification-setup --voice "Good News" --wpm 200
-claude  # Start Claude Code - you'll now get audio notifications!
+# Give your Claude instances custom names!
+CLAUDE_INSTANCE_NAME="Email Helper" claude
+
+# Or add this helper to your shell config:
+claude-named() {
+  local name="$1"
+  shift
+  CLAUDE_INSTANCE_NAME="$name" claude "$@"
+}
+
+# Then use:
+claude-named "Code Review" -p "Review this PR"
 ```
 
 What you'll hear:
-- 🛑 **Claude finishes**: "In project_name, Claude finished responding"
-- 📢 **Claude needs input**: "In project_name, Claude needs input"
+- 🛑 **Claude finishes**: "In [your instance name], Claude finished responding"
+- 📢 **Claude needs input**: "In [your instance name], Claude needs input"
 
 ## Usage
 
